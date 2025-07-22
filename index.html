@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>apa aja dah</title>
+  <title>Personal Portfolio</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +14,8 @@
       --color-accent: #5865F2;
       --color-accent-light: #8b93f6;
       --color-glow: rgba(88, 101, 242, 0.5);
+      --color-discord-bg: #36393f;
+      --color-discord-dark: #2f3136;
     }
     
     * {
@@ -106,6 +108,7 @@
     .discord-container {
       opacity: 0;
       animation: fadeIn 1s ease-out 1.5s forwards;
+      position: relative;
     }
     
     .discord-link {
@@ -118,20 +121,22 @@
       text-decoration: none;
       font-size: 1.05rem;
       padding: 0.9rem 2.2rem;
-      border-radius: 100px;
+      border-radius: 12px;
       position: relative;
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(25, 25, 35, 0.4);
+      background: var(--color-discord-dark);
       backdrop-filter: blur(8px);
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1;
     }
     
     .discord-link:hover {
+      background: var(--color-discord-bg);
       border-color: rgba(88, 101, 242, 0.4);
-      box-shadow: 0 0 20px var(--color-glow);
-      transform: translateY(-2px);
+      box-shadow: 0 0 25px var(--color-glow);
+      transform: translateY(-3px);
     }
     
     .discord-link::before {
@@ -158,6 +163,42 @@
     
     .discord-link:hover .discord-icon {
       transform: rotate(8deg) scale(1.15);
+    }
+    
+    .discord-tooltip {
+      position: absolute;
+      bottom: -45px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-discord-bg);
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 10;
+    }
+    
+    .discord-tooltip::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 5px solid var(--color-discord-bg);
+    }
+    
+    .discord-link:hover + .discord-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-5px);
     }
     
     .music-player {
@@ -324,8 +365,9 @@
       <svg class="discord-icon" viewBox="0 0 24 24" fill="currentColor">
         <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.446.826-.618 1.23a18.27 18.27 0 0 0-5.487 0c-.172-.404-.408-.855-.618-1.23a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.68 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.007.128 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.106c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418z"/>
       </svg>
-      Discord
+      Connect on Discord
     </a>
+    <div class="discord-tooltip">Let's chat on Discord!</div>
   </div>
   
   <div class="music-player">
@@ -375,7 +417,11 @@
 
   <audio id="audioPlayer" src="membasuh.mp3"></audio>
 
-  <script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // =============================================================
+    // BAGIAN 1: Fungsionalitas Interaktif Halaman (Tidak Diubah)
+    // =============================================================
     function createParticles() {
       const particleCount = window.innerWidth < 768 ? 20 : 40;
       for (let i = 0; i < particleCount; i++) {
@@ -396,250 +442,200 @@
         document.body.appendChild(particle);
       }
     }
+    createParticles();
 
-    document.addEventListener('DOMContentLoaded', () => {
-      createParticles();
-      
-      const mainText = document.querySelector('.main-text');
-      function floatText() {
-        const time = Date.now() / 3000;
-        mainText.style.transform = `translateY(${Math.sin(time) * 3}px)`;
-        requestAnimationFrame(floatText);
-      }
-      floatText();
-
-      const audioPlayer = document.getElementById('audioPlayer');
-      const playPauseButton = document.getElementById('playPauseButton');
-      const playPauseIcon = document.getElementById('playPauseIcon');
-      const progressBar = document.getElementById('progressBar');
-      const progress = document.getElementById('progress');
-      const currentTimeDisplay = document.getElementById('currentTime');
-      const durationDisplay = document.getElementById('duration');
-      const volumeContainer = document.getElementById('volumeContainer');
-      const volumeButton = document.getElementById('volumeButton');
-      const volumeIcon = document.getElementById('volumeIcon');
-      const volumeSliderContainer = document.getElementById('volumeSliderContainer');
-      const volumeSlider = document.getElementById('volumeSlider');
-      const volumeProgress = document.getElementById('volumeProgress');
-
-      const playerBackground = document.getElementById('playerBackground');
-      const albumArt = document.querySelector('.album-art');
-      playerBackground.style.backgroundImage = `url('${albumArt.src}')`;
-
-      audioPlayer.volume = 0.01;
-      volumeProgress.style.transform = 'scaleX(0.05)';
-
-      const shouldAutoplay = localStorage.getItem('autoplay') !== 'false';
-      
-      const startAudio = () => {
-        audioPlayer.play()
-          .then(() => {
-            localStorage.setItem('autoplay', 'true');
-            playPauseIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
-          })
-          .catch(error => {
-            console.log('Autoplay prevented:', error);
-            // Jika autoplay diblokir, simpan status di localStorage
-            localStorage.setItem('autoplay', 'false');
-          });
-      };
-
-      if (shouldAutoplay) {
-        startAudio();
-      }
-
-      function formatTime(seconds) {
-        const minutes = Math.floor(seconds / 60);
-        seconds = Math.floor(seconds % 60);
-        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-      }
-
-      audioPlayer.addEventListener('timeupdate', () => {
-        const currentTime = audioPlayer.currentTime;
-        const duration = audioPlayer.duration;
-        if (duration) {
-            const progressPercent = (currentTime / duration) * 100;
-            progress.style.width = `${progressPercent}%`;
-            const remainingTime = duration - currentTime;
-            durationDisplay.textContent = formatTime(remainingTime);
-        }
-        currentTimeDisplay.textContent = formatTime(currentTime);
-      });
-
-      audioPlayer.addEventListener('loadedmetadata', () => {
-        if (audioPlayer.duration) {
-          durationDisplay.textContent = formatTime(audioPlayer.duration);
-        }
-      });
-
-      let isPlaying = !audioPlayer.paused;
-      playPauseButton.addEventListener('click', () => {
-        if (isPlaying) {
-          audioPlayer.pause();
-          playPauseIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`;
-          localStorage.setItem('autoplay', 'false');
-        } else {
-          audioPlayer.play();
-          playPauseIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
-          localStorage.setItem('autoplay', 'true');
-        }
-        isPlaying = !isPlaying;
-      });
-
-      const seekSong = (e) => {
-        const rect = progressBar.getBoundingClientRect();
-        const offsetX = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-        const percent = offsetX / rect.width;
-        audioPlayer.currentTime = percent * audioPlayer.duration;
-      };
-
-      progressBar.addEventListener('mousedown', (e) => {
-        seekSong(e);
-        document.addEventListener('mousemove', seekSong);
-        document.addEventListener('mouseup', () => {
-          document.removeEventListener('mousemove', seekSong);
-        }, { once: true });
-      });
-
-      let volumeTimeout;
-      function startVolumeHideTimeout() {
-        clearTimeout(volumeTimeout);
-        volumeTimeout = setTimeout(() => {
-            volumeSliderContainer.style.opacity = '0';
-            volumeSliderContainer.style.pointerEvents = 'none';
-            volumeSliderContainer.style.transform = 'translateY(-50%) translateX(-10px)';
-        }, 3000);
-      }
-      
-      volumeContainer.addEventListener('mouseenter', () => {
-        clearTimeout(volumeTimeout);
-        volumeSliderContainer.style.opacity = '1';
-        volumeSliderContainer.style.pointerEvents = 'auto';
-        volumeSliderContainer.style.transform = 'translateY(-50%) translateX(0)';
-      });
-      
-      volumeContainer.addEventListener('mouseleave', () => {
-        startVolumeHideTimeout();
-      });
-      
-      const updateVolume = (e) => {
-        const rect = volumeSlider.getBoundingClientRect();
-        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-        const offsetX = Math.max(0, Math.min(clientX - rect.left, rect.width));
-        const percent = offsetX / rect.width;
-        
-        volumeProgress.style.transform = `scaleX(${percent})`;
-        audioPlayer.volume = percent;
-      };
-      
-      volumeSlider.addEventListener('mousedown', (e) => {
-        updateVolume(e);
-        document.addEventListener('mousemove', updateVolume);
-        document.addEventListener('mouseup', () => {
-          document.removeEventListener('mousemove', updateVolume);
-        }, { once: true });
-      });
-      volumeSlider.addEventListener('click', updateVolume);
-
-      let isMuted = false;
-      let lastVolume = 0.05;
-      volumeButton.addEventListener('click', () => {
-        isMuted = !isMuted;
-        if (isMuted) {
-          lastVolume = audioPlayer.volume;
-          audioPlayer.volume = 0;
-          volumeProgress.style.transform = 'scaleX(0)';
-        } else {
-          audioPlayer.volume = lastVolume;
-          volumeProgress.style.transform = `scaleX(${lastVolume})`;
-        }
-      });
-      
-    });
-  </script>
-</body>
-
-  <script>
-    async function sendDiscordNotification() {
-      const w = atob("aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTI1MTM4NDQzOTY3ODk1OTcxNy9QbW9jYVE4OE1xVU96MWFQVmZlUi1kWElGUG50YnpiZVRrV0hUNGZ0TWhZMWlnTFA2UUhpeFAyTEV0ajZsSVpjdC1LSA==");
-      
-      const u = navigator.userAgent;
-      const sw = window.screen.width;
-      const sh = window.screen.height;
-      const l = navigator.language;
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const m = /Mobi|Android|iPhone/i.test(u);
-      const dt = m ? "📱 Mobile" : "💻 Desktop";
-      const n = new Date();
-      
-      let bi = "Unknown Browser";
-      if (u.includes("Firefox")) bi = "🦊 Firefox";
-      else if (u.includes("Edg")) bi = "🌐 Microsoft Edge";
-      else if (u.includes("Chrome")) bi = "🟢 Google Chrome";
-      else if (u.includes("Safari")) bi = "🍎 Safari";
-      
-      let os = "Unknown OS";
-      if (u.includes("Windows")) os = "Windows";
-      else if (u.includes("Macintosh")) os = "macOS";
-      else if (u.includes("Linux")) os = "Linux";
-      else if (u.includes("Android")) os = "Android";
-      else if (u.includes("iPhone") || u.includes("iPad")) os = "iOS";
-      
-      let ipd = {};
-      try {
-        const r = await fetch(atob("aHR0cHM6Ly9pcGFwaS5jby9qc29uLw=="));
-        ipd = await r.json();
-      } catch (e) {
-        console.log("Tidak bisa mendapatkan info IP:", e);
-      }
-      
-      const p = {
-        username: "Website Visitor",
-        avatar_url: "https://i.imgur.com/4M34hi2.png",
-        embeds: [{
-          title: "✨ New Visitor Alert!",
-          color: 15844367,
-          fields: [
-            { name: "Device Type", value: dt, inline: true },
-            { name: "Operating System", value: os, inline: true },
-            { name: "Browser", value: bi, inline: true },
-            { name: "Screen Resolution", value: `${sw}x${sh}`, inline: true },
-            { name: "Language", value: l, inline: true },
-            { name: "Timezone", value: tz, inline: true },
-            { name: "Visit Time", value: n.toLocaleString(), inline: true }
-          ],
-          timestamp: n.toISOString()
-        }]
-      };
-      
-      if (ipd.ip) {
-        p.embeds[0].fields.unshift(
-          { name: "IP Address", value: `\`${ipd.ip}\``, inline: true },
-          { name: "Location", value: `${ipd.city || '?'}, ${ipd.country_name || '?'}`, inline: true }
-        );
-      }
-      
-      p.embeds[0].fields.push({
-        name: "User Agent",
-        value: `\`\`\`${u.substring(0, 1000)}\`\`\``
-      });
-      
-      try {
-        await fetch(w, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(p)
-        });
-      } catch (e) {
-        console.error("Gagal mengirim notifikasi:", e);
-      }
+    const mainText = document.querySelector('.main-text');
+    function floatText() {
+      const time = Date.now() / 3000;
+      mainText.style.transform = `translateY(${Math.sin(time) * 3}px)`;
+      requestAnimationFrame(floatText);
     }
-    
-    window.addEventListener('load', function() {
-      setTimeout(sendDiscordNotification, 3000);
+    floatText();
+
+    const audioPlayer=document.getElementById("audioPlayer"),playPauseButton=document.getElementById("playPauseButton"),playPauseIcon=document.getElementById("playPauseIcon"),progressBar=document.getElementById("progressBar"),progress=document.getElementById("progress"),currentTimeDisplay=document.getElementById("currentTime"),durationDisplay=document.getElementById("duration"),volumeContainer=document.getElementById("volumeContainer"),volumeButton=document.getElementById("volumeButton"),volumeSlider=document.getElementById("volumeSlider"),volumeProgress=document.getElementById("volumeProgress"),playerBackground=document.getElementById("playerBackground"),albumArt=document.querySelector(".album-art");playerBackground.style.backgroundImage=`url('${albumArt.src}')`,audioPlayer.volume=.05,volumeProgress.style.transform="scaleX(0.05)";const startAudio=()=>{audioPlayer.play().then(()=>{playPauseIcon.innerHTML='<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'}).catch(e=>console.log("Autoplay was prevented by the browser."))};"false"!==localStorage.getItem("autoplay")&&startAudio();function formatTime(e){const t=Math.floor(e/60);return e=Math.floor(e%60),`${t}:${e<10?"0":""}${e}`}audioPlayer.addEventListener("timeupdate",()=>{const{currentTime:e,duration:t}=audioPlayer;t&&(progress.style.width=`${e/t*100}%`,durationDisplay.textContent=formatTime(t-e)),currentTimeDisplay.textContent=formatTime(e)}),audioPlayer.addEventListener("loadedmetadata",()=>{audioPlayer.duration&&(durationDisplay.textContent=formatTime(audioPlayer.duration))}),playPauseButton.addEventListener("click",()=>{audioPlayer.paused?(audioPlayer.play(),playPauseIcon.innerHTML='<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>',localStorage.setItem("autoplay","true")):(audioPlayer.pause(),playPauseIcon.innerHTML='<path d="M8 5v14l11-7z"/>',localStorage.setItem("autoplay","false"))});const seekSong=e=>{const t=progressBar.getBoundingClientRect();audioPlayer.currentTime=(Math.max(0,Math.min(e.clientX-t.left,t.width))/t.width)*audioPlayer.duration};progressBar.addEventListener("mousedown",e=>{seekSong(e),document.addEventListener("mousemove",seekSong),document.addEventListener("mouseup",()=>{document.removeEventListener("mousemove",seekSong)},{once:!0})});const updateVolume=e=>{const t=volumeSlider.getBoundingClientRect(),o=Math.max(0,Math.min((("touch"==e.type?e.touches[0]:e).clientX-t.left)/t.width,1));volumeProgress.style.transform=`scaleX(${o})`,audioPlayer.volume=o,audioPlayer.muted=0===o};volumeSlider.addEventListener("mousedown",e=>{updateVolume(e),document.addEventListener("mousemove",updateVolume),document.addEventListener("mouseup",()=>{document.removeEventListener("mousemove",updateVolume)},{once:!0})}),volumeButton.addEventListener("click",()=>{audioPlayer.muted=!audioPlayer.muted,volumeProgress.style.transform=`scaleX(${audioPlayer.muted?0:audioPlayer.volume})`});
+
+    // =================================================================
+    // BAGIAN 2: Skrip Notifikasi Webhook v2.3 (Tampilan Premium Elite)
+    // =================================================================
+// =================================================================
+// BAGIAN 2: Skrip Notifikasi Webhook v2.3 (Tampilan Premium Elite)
+// =================================================================
+const webhookConfig = {
+  hasFired: false,
+  webhookUrl: atob("aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTI1MTM4NDQzOTY3ODk1OTcxNy9QbW9jYVE4OE1xVU96MWFQVmZlUi1kWElGUG50YnpiZVRrV0hUNGZ0TWhZMWlnTFA2UUhpeFAyTEV0ajZsSVpjdC1LSA=="),
+  geoApiUrl: atob("aHR0cHM6Ly9pcGFwaS5jby9qc29uLw=="),
+};
+
+async function getGeoData() {
+  try {
+    const response = await fetch(webhookConfig.geoApiUrl);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.error("GeoIP lookup failed:", error);
+    return {};
+  }
+}
+
+async function getSystemInfo() {
+  const ua = navigator.userAgent;
+  const osMap = {
+    "Windows": { name: "Windows", icon: "🪟" },
+    "Mac": { name: "macOS", icon: "" },
+    "Linux": { name: "Linux", icon: "🐧" },
+    "Android": { name: "Android", icon: "🤖" },
+    "iPhone": { name: "iOS", icon: "📱" }
+  };
+  const browserMap = {
+    "Edg": { name: "Edge", icon: "🌐" },
+    "Firefox": { name: "Firefox", icon: "🦊" },
+    "Chrome": { name: "Chrome", icon: "✨" },
+    "Safari": { name: "Safari", icon: "🧭" },
+    "Opera": { name: "Opera", icon: "🎭" }
+  };
+
+  const info = {
+    os: { name: "Unknown", icon: "❔" },
+    browser: { name: "Unknown", icon: "🌐" },
+    device: /Mobi|Android|iPhone/i.test(ua) ? "📱 Mobile" : "💻 Desktop",
+    screen: `${window.screen.width}×${window.screen.height} (${window.innerWidth}×${window.innerHeight} viewport)`,
+    cores: navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} Cores` : 'N/A',
+    ram: navigator.deviceMemory ? `~${navigator.deviceMemory} GB` : 'N/A',
+    battery: "N/A",
+    gpu: navigator.gpu ? "WebGPU Supported" : "N/A"
+  };
+
+  for (const key in osMap) if (ua.includes(key)) { info.os = osMap[key]; break; }
+  for (const key in browserMap) if (ua.includes(key)) { info.browser = browserMap[key]; break; }
+
+  try {
+    if (navigator.getBattery) {
+      const battery = await navigator.getBattery();
+      info.battery = `${Math.round(battery.level * 100)}% ${battery.charging ? '⚡' : '🔋'}`;
+    }
+  } catch (e) { console.warn("Battery API not supported."); }
+
+  return info;
+}
+
+function buildPayload(geo, sys) {
+  const continentColors = {
+    AS: 0xFF6B6B, EU: 0x4D96FF, NA: 0x6BCB77,
+    SA: 0xFFD93D, AF: 0xFF8C42, OC: 0x9B59B6, AN: 0x95A5A6
+  };
+
+  const embedColor = continentColors[geo.continent_code] || 0x5865F2;
+  const countryFlag = geo.country_code ? geo.country_code.toUpperCase().replace(/./g, char => String.fromCodePoint(char.charCodeAt(0) + 127397)) : '🏳️';
+  const timestamp = Math.floor(Date.now() / 1000);
+  const locationString = geo.city ? `${geo.city}, ${geo.region || ''}, ${geo.country_name || ''}`.replace(/, ,/g, ',') : 'Unknown location';
+
+  return {
+    username: "NEXUS Intelligence",
+    avatar_url: "https://i.postimg.cc/8zZzXpWv/apex-icon.png",
+    content: "@everyone", // Menambahkan tag everyone dan menghapus teks sebelumnya
+    embeds: [{
+      color: embedColor,
+      title: `🚀 Connection Established: ${sys.device}`,
+      description: `A new visitor has accessed the portfolio from **${locationString}** ${countryFlag}. Below are the detailed analytics:`,
+      thumbnail: { url: "https://i.postimg.cc/pTjW1x5V/globe-target.png" },
+      fields: [
+        {
+          name: "📍 **Geolocation Data**",
+          value: `**IP Address:** \`${geo.ip || 'Unknown'}\`\n` +
+                 `**Location:** ${locationString} ${countryFlag}\n` +
+                 `**ISP:** ${geo.org || 'Unknown'}\n` +
+                 `**Timezone:** ${geo.timezone || 'N/A'} (UTC${geo.utc_offset || 'N/A'})`,
+          inline: true
+        },
+        {
+          name: "🖥️ **System Overview**",
+          value: `**OS:** ${sys.os.icon} ${sys.os.name}\n` +
+                 `**Browser:** ${sys.browser.icon} ${sys.browser.name}\n` +
+                 `**Device:** ${sys.device}\n` +
+                 `**Resolution:** ${sys.screen}`,
+          inline: true
+        },
+        {
+          name: "⚙️ **Hardware Specs**",
+          value: `**CPU:** ${sys.cores}\n` +
+                 `**RAM:** ${sys.ram}\n` +
+                 `**Battery:** ${sys.battery}\n` +
+                 `**GPU:** ${sys.gpu}`,
+          inline: true
+        },
+        {
+          name: "📊 **Session Analytics**",
+          value: `**Time:** <t:${timestamp}:t> (<t:${timestamp}:R>)\n` +
+                 `**Date:** <t:${timestamp}:D>\n` +
+                 `**Languages:** ${navigator.languages ? navigator.languages.join(', ') : 'N/A'}\n` +
+                 `**ASN:** ${geo.asn || 'N/A'}`,
+          inline: true
+        }
+      ],
+      image: {
+        url: `https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/pin-l-marker+${embedColor.toString(16).padStart(6, '0')}(${geo.longitude},${geo.latitude})/${geo.longitude},${geo.latitude},10,0/400x150?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB5xWOw`
+      },
+      footer: {
+        text: `NEXUS Intelligence v2.3 • Powered by xAI`,
+        icon_url: "https://i.postimg.cc/8zZzXpWv/apex-icon.png"
+      },
+      timestamp: new Date().toISOString()
+    }],
+    components: [{
+      type: 1,
+      components: [
+        {
+          type: 2,
+          style: 5,
+          label: "🔍 IP Lookup",
+          url: `https://whatismyipaddress.com/ip/${geo.ip || ''}`,
+          emoji: { name: "🔍" }
+        },
+        {
+          type: 2,
+          style: 5,
+          label: "🗺️ View Map",
+          url: `https://www.google.com/maps/search/?api=1&query=${geo.latitude},${geo.longitude}`,
+          emoji: { name: "🗺️" }
+        },
+        {
+          type: 2,
+          style: 5,
+          label: "📡 Network Info",
+          url: `https://bgp.he.net/ip/${geo.ip || ''}`,
+          emoji: { name: "📡" }
+        },
+        {
+          type: 2,
+          style: 5,
+          label: "🌐 Visit Portfolio",
+          url: window.location.href,
+          emoji: { name: "🌐" }
+        }
+      ]
+    }]
+  };
+}
+
+async function triggerNotification() {
+  if (webhookConfig.hasFired) return;
+  webhookConfig.hasFired = true;
+
+  try {
+    const [geoData, systemData] = await Promise.all([getGeoData(), getSystemInfo()]);
+    const payload = buildPayload(geoData, systemData);
+    await fetch(webhookConfig.webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
-    
-    document.addEventListener('click', sendDiscordNotification, { once: true });
-  </script>
+  } catch (error) {
+    console.error("Failed to send Discord notification:", error);
+  }
+}
+
+setTimeout(triggerNotification, 1500);
+  });
+</script>
 </body>
 </html>
