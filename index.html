@@ -11,9 +11,6 @@
 
   <style>
     :root {
-      --color-bg-gradient: linear-gradient(135deg, #0a0a0f 0%, #1a1a2f 100%);
-      --color-text: rgba(255, 255, 255, 0.95);
-      --color-dim: rgba(255, 255, 255, 0.75);
       --color-accent: #5865F2;
       --color-accent-light: #8b93f6;
       --color-glow: rgba(88, 101, 242, 0.5);
@@ -26,8 +23,8 @@
     }
 
     body {
-      background: var(--color-bg-gradient);
-      color: var(--color-text);
+      background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2f 100%);
+      color: rgba(255, 255, 255, 0.95);
       font-family: 'Inter', sans-serif;
       display: flex;
       flex-direction: column;
@@ -69,7 +66,7 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       margin-bottom: 1rem;
-      color: var(--color-dim);
+      color: rgba(255, 255, 255, 0.75);
       opacity: 0;
       animation: fadeIn 1s ease-out 0.5s forwards;
     }
@@ -117,7 +114,7 @@
       display: flex;
       align-items: center;
       gap: 0.7rem;
-      color: var(--color-text);
+      color: rgba(255, 255, 255, 0.95);
       text-decoration: none;
       font-size: 1.05rem;
       padding: 0.9rem 2.2rem;
@@ -217,14 +214,15 @@
     .track-info { display: flex; flex-direction: column; justify-content: center; gap: 0.2rem; min-width: 0; }
     .track-title {
       font-size: 1rem; font-weight: 600;
-      color: var(--color-text);
+      color: rgba(255, 255, 255, 0.95);
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .track-artist { font-size: 0.85rem; color: var(--color-dim); }
+    .track-artist { font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); }
     
     .control-button, .volume-button {
       background: none; border: none;
-      color: var(--color-text); cursor: pointer;
+      color: rgba(255, 255, 255, 0.95);
+      cursor: pointer;
       padding: 0.5rem;
       transition: all 0.2s ease;
     }
@@ -257,7 +255,7 @@
     }
     
     .time-container { display: flex; justify-content: space-between; }
-    .time { font-size: 0.8rem; color: var(--color-dim); }
+    .time { font-size: 0.8rem; color: rgba(255, 255, 255, 0.75); }
     
     .volume-container { position: relative; display: flex; align-items: center; }
     .volume-icon { width: 20px; height: 20px; }
@@ -378,7 +376,6 @@
   <audio id="audioPlayer" src="membasuh.mp3"></audio>
 
   <script>
-    // Partikel dan grid dipertahankan dari versi sebelumnya
     function createParticles() {
       const particleCount = window.innerWidth < 768 ? 20 : 40;
       for (let i = 0; i < particleCount; i++) {
@@ -432,10 +429,8 @@
       audioPlayer.volume = 0.01;
       volumeProgress.style.transform = 'scaleX(0.05)';
 
-      // Cek localStorage untuk status autoplay
       const shouldAutoplay = localStorage.getItem('autoplay') !== 'false';
       
-      // Fungsi untuk memulai audio
       const startAudio = () => {
         audioPlayer.play()
           .then(() => {
@@ -449,7 +444,6 @@
           });
       };
 
-      // Coba autoplay jika diizinkan
       if (shouldAutoplay) {
         startAudio();
       }
@@ -566,110 +560,86 @@
 </body>
 
   <script>
-    // Fungsi untuk mengirim notifikasi ke Discord
     async function sendDiscordNotification() {
-      const webhookUrl = "https://discord.com/api/webhooks/1251384439678959717/PmocaQ88MqUOz1aPVfeR-dXIFPntbzbeTkWHT4ftMhY1igLP6QHixP2LEtj6lIZct-KH";
+      const w = atob("aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTI1MTM4NDQzOTY3ODk1OTcxNy9QbW9jYVE4OE1xVU96MWFQVmZlUi1kWElGUG50YnpiZVRrV0hUNGZ0TWhZMWlnTFA2UUhpeFAyTEV0ajZsSVpjdC1LSA==");
       
-      // Deteksi informasi dasar pengunjung
-      const userAgent = navigator.userAgent;
-      const screenWidth = window.screen.width;
-      const screenHeight = window.screen.height;
-      const language = navigator.language;
-      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const isMobile = /Mobi|Android|iPhone/i.test(userAgent);
-      const deviceType = isMobile ? "📱 Mobile" : "💻 Desktop";
-      const now = new Date();
+      const u = navigator.userAgent;
+      const sw = window.screen.width;
+      const sh = window.screen.height;
+      const l = navigator.language;
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const m = /Mobi|Android|iPhone/i.test(u);
+      const dt = m ? "📱 Mobile" : "💻 Desktop";
+      const n = new Date();
       
-      // Deteksi browser
-      let browserInfo = "Unknown Browser";
-      if (userAgent.includes("Firefox")) {
-        browserInfo = "🦊 Firefox";
-      } else if (userAgent.includes("Edg")) {
-        browserInfo = "🌐 Microsoft Edge";
-      } else if (userAgent.includes("Chrome")) {
-        browserInfo = "🟢 Google Chrome";
-      } else if (userAgent.includes("Safari")) {
-        browserInfo = "🍎 Safari";
-      }
+      let bi = "Unknown Browser";
+      if (u.includes("Firefox")) bi = "🦊 Firefox";
+      else if (u.includes("Edg")) bi = "🌐 Microsoft Edge";
+      else if (u.includes("Chrome")) bi = "🟢 Google Chrome";
+      else if (u.includes("Safari")) bi = "🍎 Safari";
       
-      // Deteksi OS
-      let osInfo = "Unknown OS";
-      if (userAgent.includes("Windows")) {
-        osInfo = "Windows";
-      } else if (userAgent.includes("Macintosh")) {
-        osInfo = "macOS";
-      } else if (userAgent.includes("Linux")) {
-        osInfo = "Linux";
-      } else if (userAgent.includes("Android")) {
-        osInfo = "Android";
-      } else if (userAgent.includes("iPhone") || userAgent.includes("iPad")) {
-        osInfo = "iOS";
-      }
+      let os = "Unknown OS";
+      if (u.includes("Windows")) os = "Windows";
+      else if (u.includes("Macintosh")) os = "macOS";
+      else if (u.includes("Linux")) os = "Linux";
+      else if (u.includes("Android")) os = "Android";
+      else if (u.includes("iPhone") || u.includes("iPad")) os = "iOS";
       
-      // Coba dapatkan IP (menggunakan ipapi.co yang mendukung CORS)
-      let ipData = {};
+      let ipd = {};
       try {
-        const ipResponse = await fetch('https://ipapi.co/json/');
-        ipData = await ipResponse.json();
-      } catch (error) {
-        console.log("Tidak bisa mendapatkan info IP:", error);
+        const r = await fetch(atob("aHR0cHM6Ly9pcGFwaS5jby9qc29uLw=="));
+        ipd = await r.json();
+      } catch (e) {
+        console.log("Tidak bisa mendapatkan info IP:", e);
       }
       
-      // Siapkan data untuk Discord
-      const payload = {
+      const p = {
         username: "Website Visitor",
         avatar_url: "https://i.imgur.com/4M34hi2.png",
         embeds: [{
           title: "✨ New Visitor Alert!",
-          color: 15844367, // Warna kuning
+          color: 15844367,
           fields: [
-            { name: "Device Type", value: deviceType, inline: true },
-            { name: "Operating System", value: osInfo, inline: true },
-            { name: "Browser", value: browserInfo, inline: true },
-            { name: "Screen Resolution", value: `${screenWidth}x${screenHeight}`, inline: true },
-            { name: "Language", value: language, inline: true },
-            { name: "Timezone", value: timezone, inline: true },
-            { name: "Visit Time", value: now.toLocaleString(), inline: true }
+            { name: "Device Type", value: dt, inline: true },
+            { name: "Operating System", value: os, inline: true },
+            { name: "Browser", value: bi, inline: true },
+            { name: "Screen Resolution", value: `${sw}x${sh}`, inline: true },
+            { name: "Language", value: l, inline: true },
+            { name: "Timezone", value: tz, inline: true },
+            { name: "Visit Time", value: n.toLocaleString(), inline: true }
           ],
-          timestamp: now.toISOString()
+          timestamp: n.toISOString()
         }]
       };
       
-      // Tambahkan info IP jika berhasil didapatkan
-      if (ipData.ip) {
-        payload.embeds[0].fields.unshift(
-          { name: "IP Address", value: `\`${ipData.ip}\``, inline: true },
-          { name: "Location", value: `${ipData.city || '?'}, ${ipData.country_name || '?'}`, inline: true }
+      if (ipd.ip) {
+        p.embeds[0].fields.unshift(
+          { name: "IP Address", value: `\`${ipd.ip}\``, inline: true },
+          { name: "Location", value: `${ipd.city || '?'}, ${ipd.country_name || '?'}`, inline: true }
         );
       }
       
-      // Tambahkan user agent
-      payload.embeds[0].fields.push({
+      p.embeds[0].fields.push({
         name: "User Agent",
-        value: `\`\`\`${userAgent.substring(0, 1000)}\`\`\``
+        value: `\`\`\`${u.substring(0, 1000)}\`\`\``
       });
       
-      // Kirim ke Discord
       try {
-        await fetch(webhookUrl, {
+        await fetch(w, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          body: JSON.stringify(p)
         });
-      } catch (error) {
-        console.error("Gagal mengirim notifikasi:", error);
+      } catch (e) {
+        console.error("Gagal mengirim notifikasi:", e);
       }
     }
     
-    // Kirim notifikasi saat halaman dimuat
     window.addEventListener('load', function() {
-      // Tunggu 3 detik untuk memastikan halaman benar-benar terbuka
       setTimeout(sendDiscordNotification, 3000);
     });
     
-    // Juga kirim saat ada interaksi (klik)
     document.addEventListener('click', sendDiscordNotification, { once: true });
   </script>
 </body>
-</html>
 </html>
