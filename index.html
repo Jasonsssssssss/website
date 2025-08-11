@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>apa aja dah</title>
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@1,400&family=Poppins:wght@500&display=swap" rel="stylesheet">
@@ -13,11 +13,11 @@
     :root {
       --color-accent: #5865F2;
       --color-accent-light: #8b93f6;
-      --color-glow: rgba(88, 101, 242, 0.5);
+      --color-glow: rgba(243, 115, 53, 0.5);
       --color-discord-bg: #36393f;
       --color-discord-dark: #2f3136;
     }
-    
+
     * {
       margin: 0;
       padding: 0;
@@ -36,20 +36,14 @@
       overflow: hidden;
       position: relative;
     }
-    
-    .grid {
+
+    #visualizerCanvas {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-image:
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 70px 70px;
-      animation: gridScroll 150s linear infinite;
       z-index: -1;
-      opacity: 0.5;
     }
 
     .particle {
@@ -61,7 +55,7 @@
       animation: float 25s linear infinite, pulse 3s ease-in-out infinite alternate;
       box-shadow: 0 0 10px var(--color-glow);
     }
-    
+
     .greeting {
       font-size: 1.1rem;
       font-weight: 400;
@@ -72,7 +66,7 @@
       opacity: 0;
       animation: fadeIn 1s ease-out 0.5s forwards;
     }
-    
+
     .main-text {
       font-family: 'Lora', serif;
       font-style: italic;
@@ -87,11 +81,11 @@
       animation: fadeInUp 1s ease-out 0.7s forwards;
       transition: text-shadow 0.4s ease;
     }
-    
+
     .main-text:hover {
       text-shadow: 0 0 15px var(--color-glow);
     }
-    
+
     .main-text::after {
       content: '';
       position: absolute;
@@ -104,13 +98,13 @@
       opacity: 0;
       animation: lineExtend 1.5s ease-out 1.2s forwards;
     }
-    
+
     .discord-container {
       opacity: 0;
       animation: fadeIn 1s ease-out 1.5s forwards;
       position: relative;
     }
-    
+
     .discord-link {
       font-family: 'Poppins', sans-serif;
       font-weight: 500;
@@ -131,14 +125,14 @@
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       z-index: 1;
     }
-    
+
     .discord-link:hover {
       background: var(--color-discord-bg);
       border-color: rgba(88, 101, 242, 0.4);
       box-shadow: 0 0 25px var(--color-glow);
       transform: translateY(-3px);
     }
-    
+
     .discord-link::before {
       content: '';
       position: absolute;
@@ -150,21 +144,21 @@
       transform-origin: right;
       transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    
+
     .discord-link:hover::before {
       transform: scaleX(1);
       transform-origin: left;
     }
-    
+
     .discord-icon {
       width: 22px; height: 22px;
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    
+
     .discord-link:hover .discord-icon {
       transform: rotate(8deg) scale(1.15);
     }
-    
+
     .discord-tooltip {
       position: absolute;
       bottom: -45px;
@@ -182,7 +176,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       z-index: 10;
     }
-    
+
     .discord-tooltip::after {
       content: '';
       position: absolute;
@@ -195,12 +189,12 @@
       border-right: 5px solid transparent;
       border-bottom: 5px solid var(--color-discord-bg);
     }
-    
+
     .discord-link:hover + .discord-tooltip {
       opacity: 1;
       transform: translateX(-50%) translateY(-5px);
     }
-    
+
     .music-player {
       position: fixed;
       bottom: 20px;
@@ -238,7 +232,7 @@
       z-index: -1;
       transition: background-image 0.8s ease-in-out;
     }
-    
+
     .player-top, .player-bottom { display: flex; align-items: center; width: 100%; }
     .player-top { gap: 1rem; }
     .player-middle { width: 100%; }
@@ -251,7 +245,7 @@
       flex-shrink: 0;
       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
-    
+
     .track-info { display: flex; flex-direction: column; justify-content: center; gap: 0.2rem; min-width: 0; }
     .track-title {
       font-size: 1rem; font-weight: 600;
@@ -259,7 +253,7 @@
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .track-artist { font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); }
-    
+
     .control-button, .volume-button {
       background: none; border: none;
       color: rgba(255, 255, 255, 0.95);
@@ -267,19 +261,19 @@
       padding: 0.5rem;
       transition: all 0.2s ease;
     }
-    
+
     .control-button:hover, .volume-button:hover {
       color: var(--color-accent-light);
       transform: scale(1.1);
     }
-    
+
     .control-button:active, .volume-button:active {
         transform: scale(0.95);
         transition: transform 0.1s ease;
     }
-    
+
     .control-icon { width: 24px; height: 24px; }
-    
+
     .progress-bar {
       width: 100%; height: 5px;
       background: rgba(255, 255, 255, 0.15);
@@ -287,20 +281,20 @@
       cursor: pointer; position: relative;
       margin-bottom: 0.5rem;
     }
-    
+
     .progress {
       height: 100%;
       background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light));
       border-radius: 2.5px;
       width: 0; transition: width 0.1s linear;
     }
-    
+
     .time-container { display: flex; justify-content: space-between; }
     .time { font-size: 0.8rem; color: rgba(255, 255, 255, 0.75); }
-    
+
     .volume-container { position: relative; display: flex; align-items: center; }
     .volume-icon { width: 20px; height: 20px; }
-    
+
     .volume-slider-container {
       position: absolute; left: calc(100% + 5px); top: 50%;
       transform: translateY(-50%) translateX(-10px);
@@ -308,12 +302,12 @@
       opacity: 0; pointer-events: none;
       transition: all 0.3s ease;
     }
-    
+
     .volume-container:hover .volume-slider-container {
       opacity: 1; transform: translateY(-50%) translateX(0);
       pointer-events: auto;
     }
-    
+
     .volume-slider {
       width: 100px; height: 4px;
       background: rgba(255, 255, 255, 0.15);
@@ -321,7 +315,7 @@
       cursor: pointer; position: relative;
       overflow: hidden;
     }
-    
+
     .volume-progress {
       height: 100%;
       background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light));
@@ -329,18 +323,13 @@
       width: 100%; transform: scaleX(0.05); transform-origin: left;
       transition: transform 0.1s linear;
     }
-    
+
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes lineExtend {
       0% { width: 0%; opacity: 0; }
       50% { width: 40%; opacity: 1; }
       100% { width: 40%; opacity: 1; }
-    }
-
-    @keyframes gridScroll {
-      0% { background-position: 0 0; }
-      100% { background-position: 1400px 1400px; }
     }
 
     @keyframes float {
@@ -351,15 +340,15 @@
       from { opacity: 0.2; }
       to { opacity: 0.6; }
     }
-    
+
   </style>
 </head>
 <body>
-  <div class="grid"></div>
-  
+  <canvas id="visualizerCanvas"></canvas>
+
   <div class="greeting">Hello</div>
   <h1 class="main-text">Cogito ergo sum</h1>
-  
+
   <div class="discord-container">
     <a href="https://discordapp.com/users/860673069721845760" class="discord-link" target="_blank">
       <svg class="discord-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -369,10 +358,10 @@
     </a>
     <div class="discord-tooltip">My Discord Profile</div>
   </div>
-  
+
   <div class="music-player">
     <div class="music-player__background" id="playerBackground"></div>
-    
+
     <div class="player-top">
       <img src="membasuh-album.png" alt="Membasuh Album Art" class="album-art">
       <div class="track-info">
@@ -380,7 +369,7 @@
         <span class="track-artist">Hindia</span>
       </div>
     </div>
-    
+
     <div class="player-middle">
       <div class="progress-bar" id="progressBar">
         <div class="progress" id="progress"></div>
@@ -390,7 +379,7 @@
         <span class="time" id="duration">0:00</span>
       </div>
     </div>
-    
+
     <div class="player-bottom">
       <div class="volume-container" id="volumeContainer">
         <button class="volume-button" id="volumeButton">
@@ -412,7 +401,7 @@
         </button>
       </div>
     </div>
-    
+
   </div>
 
   <audio id="audioPlayer" src="membasuh.mp3"></audio>
@@ -453,6 +442,86 @@
     floatText();
 
     const audioPlayer=document.getElementById("audioPlayer"),playPauseButton=document.getElementById("playPauseButton"),playPauseIcon=document.getElementById("playPauseIcon"),progressBar=document.getElementById("progressBar"),progress=document.getElementById("progress"),currentTimeDisplay=document.getElementById("currentTime"),durationDisplay=document.getElementById("duration"),volumeContainer=document.getElementById("volumeContainer"),volumeButton=document.getElementById("volumeButton"),volumeSlider=document.getElementById("volumeSlider"),volumeProgress=document.getElementById("volumeProgress"),playerBackground=document.getElementById("playerBackground"),albumArt=document.querySelector(".album-art");playerBackground.style.backgroundImage=`url('${albumArt.src}')`,audioPlayer.volume=.05,volumeProgress.style.transform="scaleX(0.05)";const startAudio=()=>{audioPlayer.play().then(()=>{playPauseIcon.innerHTML='<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'}).catch(e=>console.log("Autoplay was prevented by the browser."))};"false"!==localStorage.getItem("autoplay")&&startAudio();function formatTime(e){const t=Math.floor(e/60);return e=Math.floor(e%60),`${t}:${e<10?"0":""}${e}`}audioPlayer.addEventListener("timeupdate",()=>{const{currentTime:e,duration:t}=audioPlayer;t&&(progress.style.width=`${e/t*100}%`,durationDisplay.textContent=formatTime(t-e)),currentTimeDisplay.textContent=formatTime(e)}),audioPlayer.addEventListener("loadedmetadata",()=>{audioPlayer.duration&&(durationDisplay.textContent=formatTime(audioPlayer.duration))}),playPauseButton.addEventListener("click",()=>{audioPlayer.paused?(audioPlayer.play(),playPauseIcon.innerHTML='<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>',localStorage.setItem("autoplay","true")):(audioPlayer.pause(),playPauseIcon.innerHTML='<path d="M8 5v14l11-7z"/>',localStorage.setItem("autoplay","false"))});const seekSong=e=>{const t=progressBar.getBoundingClientRect();audioPlayer.currentTime=(Math.max(0,Math.min(e.clientX-t.left,t.width))/t.width)*audioPlayer.duration};progressBar.addEventListener("mousedown",e=>{seekSong(e),document.addEventListener("mousemove",seekSong),document.addEventListener("mouseup",()=>{document.removeEventListener("mousemove",seekSong)},{once:!0})});const updateVolume=e=>{const t=volumeSlider.getBoundingClientRect(),o=Math.max(0,Math.min((("touch"==e.type?e.touches[0]:e).clientX-t.left)/t.width,1));volumeProgress.style.transform=`scaleX(${o})`,audioPlayer.volume=o,audioPlayer.muted=0===o};volumeSlider.addEventListener("mousedown",e=>{updateVolume(e),document.addEventListener("mousemove",updateVolume),document.addEventListener("mouseup",()=>{document.removeEventListener("mousemove",updateVolume)},{once:!0})}),volumeButton.addEventListener("click",()=>{audioPlayer.muted=!audioPlayer.muted,volumeProgress.style.transform=`scaleX(${audioPlayer.muted?0:audioPlayer.volume})`});
+
+    // =============================================================
+    // BAGIAN 3: Music Visualizer
+    // =============================================================
+    const canvas = document.getElementById('visualizerCanvas');
+    const canvasCtx = canvas.getContext('2d');
+    let audioContext;
+    let analyser;
+    let source;
+
+    function initAudioVisualizer() {
+        if (audioContext) return;
+
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioContext.createAnalyser();
+        source = audioContext.createMediaElementSource(audioPlayer);
+
+        source.connect(analyser);
+        analyser.connect(audioContext.destination);
+
+        analyser.fftSize = 256;
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const barWidth = (canvas.width / bufferLength) * 1.5;
+        let barHeight;
+        let x = 0;
+
+        const gradient = canvasCtx.createLinearGradient(0, canvas.height, 0, 0);
+        gradient.addColorStop(0, 'rgba(253, 200, 48, 0.5)');
+        gradient.addColorStop(0.5, 'rgba(243, 115, 53, 0.8)');
+        gradient.addColorStop(1, 'rgba(244, 162, 97, 0.5)');
+
+        function renderFrame() {
+            requestAnimationFrame(renderFrame);
+
+            if (audioPlayer.paused) {
+                canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+                return;
+            }
+
+            x = 0;
+            analyser.getByteFrequencyData(dataArray);
+
+            canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < bufferLength; i++) {
+                barHeight = dataArray[i] * (canvas.height / 250);
+
+                // Glow effect
+                canvasCtx.shadowColor = 'rgba(243, 115, 53, 0.7)';
+                canvasCtx.shadowBlur = 8;
+                canvasCtx.fillStyle = gradient;
+
+                // Draw the bar with a rounded top
+                canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+                if (barHeight > 0) {
+                    canvasCtx.beginPath();
+                    canvasCtx.arc(x + barWidth / 2, canvas.height - barHeight, barWidth / 2, Math.PI, 2 * Math.PI);
+                    canvasCtx.fill();
+                }
+
+                x += barWidth + 2;
+            }
+            // Reset shadow for other elements
+            canvasCtx.shadowBlur = 0;
+        }
+
+        renderFrame();
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    }
+
+    playPauseButton.addEventListener('click', initAudioVisualizer, { once: true });
+
 
     // =================================================================
     // BAGIAN 2: Skrip Notifikasi Webhook v2.3 (Tampilan Premium Elite)
